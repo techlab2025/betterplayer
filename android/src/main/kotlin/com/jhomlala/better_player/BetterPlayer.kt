@@ -412,22 +412,24 @@ internal class BetterPlayer(
                 DefaultSsChunkSource.Factory(mediaDataSourceFactory),
                 DefaultDataSource.Factory(context, mediaDataSourceFactory)
             )
-                .setDrmSessionManagerProvider(drmSessionManagerProvider)
+            .setDrmSessionManagerProvider(DefaultDrmSessionManagerProvider())
+            
                 .createMediaSource(mediaItem)
             C.TYPE_DASH -> DashMediaSource.Factory(
                 DefaultDashChunkSource.Factory(mediaDataSourceFactory),
                 DefaultDataSource.Factory(context, mediaDataSourceFactory)
-            )
-                .setDrmSessionManagerProvider(drmSessionManagerProvider)
+            ).setDrmSessionManagerProvider(DefaultDrmSessionManagerProvider())
+             
                 .createMediaSource(mediaItem)
             C.TYPE_HLS -> HlsMediaSource.Factory(mediaDataSourceFactory)
-                .setDrmSessionManagerProvider(drmSessionManagerProvider)
+            .setDrmSessionManagerProvider(DefaultDrmSessionManagerProvider())
+       
                 .createMediaSource(mediaItem)
             C.TYPE_OTHER -> ProgressiveMediaSource.Factory(
                 mediaDataSourceFactory,
                 DefaultExtractorsFactory()
-            )
-                .setDrmSessionManagerProvider(drmSessionManagerProvider)
+            ).setDrmSessionManagerProvider(DefaultDrmSessionManagerProvider())
+               
                 .createMediaSource(mediaItem)
             else -> {
                 throw IllegalStateException("Unsupported type: $type")
